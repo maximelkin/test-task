@@ -22,8 +22,7 @@ class Database {
      */
     async executeQuery(sql, params) {
         log(sql, params);
-        const result = await this._pool.query(sql, params);
-        return convertResult(result);
+        return convertResult(await this._pool.query(sql, params));
     }
 
     /**
@@ -53,7 +52,7 @@ module.exports = Database;
  */
 function convertResult([rows]) {
     return {
-        rows,
+        rows : Array.isArray(rows) ? Array.from(rows) : [], // to normal array
         metadata: {
             insertId: rows.insertId,
             affectedRows: rows.affectedRows,
