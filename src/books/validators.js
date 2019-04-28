@@ -42,7 +42,7 @@ const joiParams = {
     allowUnknown: false,
 };
 
-module.exports.getOne = module.exports.delete = (params) => getValidator.validate(params, joiParams);
+module.exports.getOne = (params) => getValidator.validate(params, joiParams);
 module.exports.getMany = (params) => getManyValidator.validate(params, joiParams);
 module.exports.create = (params) => createValidator.validate(params, joiParams);
 module.exports.patch = (params) => patchValidator.validate(params, {convert: false});

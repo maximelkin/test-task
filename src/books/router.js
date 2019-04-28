@@ -43,9 +43,7 @@ module.exports = (controller) => {
             await validator.patch(params);
             ctx.body = await controller.patch(params);
         })
-        .delete('/:id', async ctx => {
-            const params = {id: parseInt(ctx.params.id)};
-            await validator.delete(params);
-            ctx.body = await controller.delete(params);
+        .delete('/', async ctx => {
+            ctx.body = await controller.delete();
         });
 };

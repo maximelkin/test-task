@@ -44,6 +44,6 @@ module.exports = (store) => ({
         if (!isTesting) {
             throw new Error('forbidden in production');
         }
-        await store.delete(params.id);
+        await store.delete();
     }
 });

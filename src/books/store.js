@@ -142,9 +142,9 @@ module.exports = database => ({
         });
     },
 
-    async delete(id) {
-        await database.executeQuery(`DELETE FROM ${BOOKS_TABLE} WHERE id = ?`, [id]);
-        // todo maybe delete author if no books left
+    async delete() {
+        await database.executeQuery(`DELETE FROM ${BOOKS_TABLE}`);
+        await database.executeQuery(`DELETE FROM ${AUTHORS_TABLE}`);
     },
 
 

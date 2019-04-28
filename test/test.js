@@ -2,8 +2,7 @@ const requestLib = require('request-promise-native');
 const {describe, test, beforeEach} = require("mocha");
 const {assert} = require('chai');
 
-const request = requestLib.defaults({json: true, uri: '', baseUrl: 'http://localhost:8080/books'});
-
+const request = requestLib.defaults({json: true, uri: '', baseUrl: `http://${process.env.API_HOST || 'localhost'}:8080/books`});
 
 describe('Server tests', () => {
 
@@ -26,21 +25,9 @@ describe('Server tests', () => {
     }
 
     beforeEach('clear all db', async () => {
-        while (true) {
-            const elements = await request('', {
-                qs: {
-                    page: 0,
-                    pageSize: 100,
-                },
-            });
-            if (elements.length === 0) {
-                return
-            }
-            for (const item of elements) {
-                await request.delete('/' + item.id);
-            }
-        }
+        await request.delete();
     });
+
     test('get 404', async () => {
         try {
             await request('/1');
