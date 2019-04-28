@@ -27,6 +27,16 @@ services:
       TESTING: 'true'
       DATABASE_URL: 'mysql://root:root@mysql:3306/test-task'
 
+  test:
+    depends_on:
+      - backend
+    build:
+      dockerfile: Dockerfile.test
+      context: .
+
+    environment:
+      API_HOST: 'backend'
+
   mysql:
     image: mysql:5.7
     environment:

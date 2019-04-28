@@ -4,9 +4,8 @@ services:
   backend:
     ports:
       - 8080:8080
-      - 9229:9229
     depends_on:
-      - bootstrap
+      - fill_data
     build:
       dockerfile: Dockerfile.dev
       context: .
@@ -25,6 +24,16 @@ services:
 
     environment:
       TESTING: 'true'
+      DATABASE_URL: 'mysql://root:root@mysql:3306/test-task'
+
+  fill_data:
+    depends_on:
+      - bootstrap
+    build:
+      dockerfile: Dockerfile.datafill
+      context: .
+
+    environment:
       DATABASE_URL: 'mysql://root:root@mysql:3306/test-task'
 
   mysql:
