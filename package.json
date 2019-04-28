@@ -1,0 +1,30 @@
+{
+  "name": "test-task",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha test/**/*.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@hapi/joi": "^15.0.0",
+    "koa": "^2.7.0",
+    "koa-bodyparser": "^4.2.1",
+    "koa-logger": "^3.2.0",
+    "koa-router": "^7.4.0",
+    "mysql2": "^1.6.5"
+  },
+  "devDependencies": {
+    "@types/joi": "^14.3.3",
+    "@types/koa": "^2.0.48",
+    "chai": "^4.2.0",
+    "mocha": "^6.1.4",
+    "request": "^2.88.0",
+    "request-promise-native": "^1.0.7"
+  },
+  "engines": {
+    "node": ">=8"
+  }
+}

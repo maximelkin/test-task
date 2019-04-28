@@ -1,0 +1,44 @@
+version: '3'
+
+services:
+  backend:
+    ports:
+      - 8080:8080
+    depends_on:
+      - fill_data
+    build:
+      dockerfile: Dockerfile.dev
+      context: .
+
+    environment:
+      TESTING: 'true'
+      API_PORT: 8080
+      DATABASE_URL: 'mysql://root:root@mysql:3306/test-task'
+
+  bootstrap:
+    depends_on:
+      - mysql
+    build:
+      dockerfile: Dockerfile.bootstrap
+      context: .
+
+    environment:
+      TESTING: 'true'
+      DATABASE_URL: 'mysql://root:root@mysql:3306/test-task'
+
+  fill_data:
+    depends_on:
+      - bootstrap
+    build:
+      dockerfile: Dockerfile.datafill
+      context: .
+
+    environment:
+      DATABASE_URL: 'mysql://root:root@mysql:3306/test-task'
+
+  mysql:
+    image: mysql:5.7
+    environment:
+      # todo should be taken by script
+      MYSQL_ROOT_PASSWORD: 'root'
+      MYSQL_DATABASE: 'test-task'
